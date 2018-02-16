@@ -1,47 +1,28 @@
 version: '2'
-
 services:
- postgres:
-  build: ./postgres
-  volumes:
-   - /srv/postgresql/data:/var/lib/postgresql/data
-   - /srv/postgresql/backup:/backups
-  env_file: .env
-  ports:
-   - "5432:5432"
-                                                                                
- teamcity:
-  build: ./server
-  restart: unless-stopped
-  volumes:
-    - /srv/teamcity/data:/data/teamcity_server/datadir
-    - /srv/teamcity/logs:/opt/teamcity/logs
-  ports:
-   - "8111:8111"
-
- teamcity_agent1:
-  image: quintsys/teamcity-agent-ruby:latest
-  restart: unless-stopped
-  links:
-   - teamcity:teamcity
-  environment:
-   - SERVER_URL=teamcity:8111
-   - AGENT_NAME="tcagent_docker_001"
-
- teamcity_agent2:
-  image: quintsys/teamcity-agent-ruby:latest
-  restart: unless-stopped
-  links:
-   - teamcity:teamcity
-  environment:
-   - SERVER_URL=teamcity:8111
-   - AGENT_NAME="tcagent_docker_002"
-
- teamcity_agent3:
-  image: quintsys/teamcity-agent-ruby:latest
-  restart: unless-stopped
-  links:
-   - teamcity:teamcity
-  environment:
-   - SERVER_URL=teamcity:8111
-   - AGENT_NAME="tcagent_docker_003"
+  postgres:
+    build: ./postgres
+    restart: always
+    volumes:
+      - '/srv/postgresql/data:/var/lib/postgresql/data'
+      - '/srv/postgresql/backup:/backups'
+    env_file: .env
+    ports:
+      - '5432:5432'
+  teamcity-server:
+    build: ./server
+    restart: always
+    volumes:
+      - '/srv/teamcity/data:/data/teamcity_server/datadir'
+      - '/srv/teamcity/logs:/opt/teamcity/logs'
+    ports:
+      - '8111:8111'
+    depends_on:
+      - postgres
+  teamcity_agent:
+    image: 'quintsys/teamcity-agent-ruby:latest'
+    restart: always
+    links:
+      - 'teamcity-server:teamcity-server'
+    environment:
+      - 'SERVER_URL=teamcity-server:8111'
