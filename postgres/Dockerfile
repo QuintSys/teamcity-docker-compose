@@ -1,4 +1,4 @@
-FROM postgres:latest
+FROM postgres:9.5
 
 # Add backup scripts
 ADD backup.sh /usr/local/bin/backup
