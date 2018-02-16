@@ -1,2 +1,6 @@
 FROM jetbrains/teamcity-server
-ADD https://jdbc.postgresql.org/download/postgresql-42.1.4.jar /data/teamcity_server/datadir/lib/jdbc/postgresql-42.1.4.jar
+RUN mkdir -p /data/teamcity_server/datadir/lib/jdbc \
+  && cd /data/teamcity_server/datadir/lib/jdbc/ \
+  && curl -O https://jdbc.postgresql.org/download/postgresql-42.2.1.jar
+
+CMD ["/run-services.sh"]

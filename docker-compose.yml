@@ -11,16 +11,16 @@ services:
   postgres:
     build: ./postgres
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - postgres_backup:/backups
+      - /srv/postgresql/data:/var/lib/postgresql/data
+      - /srv/postgresql/backups:/backups
     env_file: .env
     restart: always
 
   teamcity-server:
     build: ./server
     volumes:
-      - teamcity_server_data:/data/teamcity_server/datadir
-      - teamcity_server_logs:/opt/teamcity/logs
+      - /srv/teamcity/data:/data/teamcity_server/datadir
+      - /srv/teamcity/logs:/opt/teamcity/logs
     ports:
       - 8111:8111
     depends_on:
