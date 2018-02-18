@@ -17,7 +17,7 @@ services:
     restart: always
 
   teamcity-server:
-    build: ./server
+    build: jetbrains/teamcity-server:latest
     volumes:
       - /srv/teamcity/data:/data/teamcity_server/datadir
       - /srv/teamcity/logs:/opt/teamcity/logs
@@ -29,6 +29,6 @@ services:
     restart: always
 
   teamcity-agent:
-    image: jetbrains/teamcity-minimal-agent
+    image: jetbrains/teamcity-minimal-agent:latest
     env_file: .env
     restart: always
