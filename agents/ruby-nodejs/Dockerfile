@@ -34,4 +34,4 @@ ARG BUNDLER_CONFIG="bundle config --global silence_root_warning 1"
 RUN /bin/bash -c "${SOURCE_RVM} && ${RUBY_INSTALL} && ${GEM_UPDATE} && ${BUNDLER_INSTALL} && ${BUNDLER_CONFIG}"
 
 # provide defaults for the executing container
-CMD /bin/bash -c "${SOURCE_RVM} && source run-services.sh"
+CMD /bin/bash -c "source /usr/share/rvm/scripts/rvm && source run-services.sh"
