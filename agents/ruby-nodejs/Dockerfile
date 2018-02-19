@@ -21,8 +21,6 @@ RUN apt-get update \
     && apt-add-repository -y ppa:rael-gc/rvm \
     && apt-get update \
     && apt-get install -y --no-install-recommends $RUN_PACKAGES \
-    && apt-get remove --purge -y $BUILD_PACKAGES \
-    && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* 
 
 # install ruby, update rubygems & install bundler
