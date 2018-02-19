@@ -26,12 +26,13 @@ RUN apt-get update \
 ARG RUBY_VERSION=2.4.3
 ARG RUBYGEMS_VERSION=2.7.5
 ARG BUNDLER_VERSION=1.16.1 
-RUN ["/bin/bash", \
-    "-c", \
-    "source /usr/share/rvm/scripts/rvm", \
-    "&& rvm install ${RUBY_VERSION}", \
-    "&& gem update --system ${RUBYGEMS_VERSION}", \
-    "&& rvm @global do gem install bundler --version ${BUNDLER_VERSION}", \
-    "&& bundle config --global silence_root_warning 1"]
+ARG SOURCE_RVM="source /usr/share/rvm/scripts/rvm"  
+ARG RUBY_INSTALL="rvm install ${RUBY_VERSION}" 
+ARG GEM_UPDATE="gem update --system ${RUBYGEMS_VERSION}"
+ARG BUNDLER_INSTALL="rvm @global do gem install bundler --version ${BUNDLER_VERSION}"
+ARG BUNDLER_CONFIG="bundle config --global silence_root_warning 1"
+RUN /bin/bash -c "${SOURCE_RVM} && ${RUBY_INSTALL} && ${BUNDLER_INSTALL} && ${BUNDLER_CONFIG}"
 
-CMD /bin/bash -c "source /usr/share/rvm/scripts/rvm && source run-services.sh"
+CMD ["/bin/bash", "-c", \
+    "source /usr/share/rvm/scripts/rvm", \
+    "&& source run-services.sh"]
