@@ -1,0 +1,24 @@
+# Generated with <3 by Cloud66
+
+services:
+  postgres:
+    git_url: git@github.com:QuintSys/teamcity-docker-compose.git
+    git_branch: master
+    build_root: ./postgres
+    volumes:
+    - /srv/postgresql/data:/var/lib/postgresql/data
+    - /srv/postgresql/backups:/backups
+  teamcity-agent:
+    git_url: git@github.com:QuintSys/teamcity-docker-compose.git
+    git_branch: master
+    build_root: ./agents/ruby-nodejs
+  teamcity-server:
+    image: jetbrains/teamcity-server:latest
+    requires:
+    - postgres
+    ports:
+    - container: 8111
+      http: 8111
+    volumes:
+    - /srv/teamcity/data:/data/teamcity_server/datadir
+    - /srv/teamcity/logs:/opt/teamcity/logs
