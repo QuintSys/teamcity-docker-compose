@@ -1,10 +1,4 @@
-version: '2'
-
-volumes:
-  postgres_data: {}
-  postgres_backup: {}
-  teamcity_server_data: {}
-  teamcity_server_logs: {}
+version: '3'
 
 services:
 
@@ -29,6 +23,7 @@ services:
     restart: always
 
   teamcity-agent:
-    image: quintsys/teamcity-agent-ruby:latest
+    build: ./agents/ruby-nodejs
     env_file: .env
     restart: always
+    scale: 3

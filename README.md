@@ -34,6 +34,12 @@ Now you can start up the service and continue configuring settings in Web Interf
 docker-compose up -d
 ```
 
+You can also specify the number of containers to run for your build agents
+
+```bash
+docker-compose up -d --scale teamcity-agent=3
+```
+
 After initialisation Web Interface will be available on `http://yourdockerhost:8111/`
 
 ### Setup DB
