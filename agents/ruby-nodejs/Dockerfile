@@ -33,3 +33,5 @@ RUN ["/bin/bash", \
     "&& gem update --system ${RUBYGEMS_VERSION}", \
     "&& rvm @global do gem install bundler --version ${BUNDLER_VERSION}", \
     "&& bundle config --global silence_root_warning 1"]
+
+CMD /bin/bash -c "source /usr/share/rvm/scripts/rvm && source run-services.sh"
