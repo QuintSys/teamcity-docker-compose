@@ -1,21 +1,8 @@
 # Installed software
 
-## Ruby
-
 * ruby2.4.3
-
-## Bundle
-
 * bundler 1.16.1
-
-## NodeJs
-
-* 8.x
-
-## Yarn
-
-* latest
-
-## DB
-
+* nodejs 8.x
+* yarn (latest)
 * PostgreSQL dev lib
+* Qt 5
