@@ -102,7 +102,7 @@ Try to find something like this:
 
 ## Agents
 
-Ruby preconfigured agents are included. [more info](agents/ruby-nodejs/README.md)
+Ruby preconfigured agents are included. See [included software](agents/ruby-nodejs/README.md)
 
 ## Contributing
 
