@@ -10,17 +10,20 @@ RUN mkdir -p /etc/ \
 # remove tty warning when executing login shells    
 RUN sed -i 's/^mesg n || true$/tty -s \&\& mesg n/g' /root/.profile
 
-# install git, rvm, nodejs and yarn
-ARG RunDeps="git rvm nodejs yarn"
+# install git, rvm, nodejs, yarn and Qt
+ARG BUILD_PACKAGES="software-properties-common"
+ARG RUN_PACKAGES="git rvm nodejs yarn qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x"
 RUN apt-get update \
-	&& apt-get install -y --no-install-recommends software-properties-common \
+	&& apt-get install -y --no-install-recommends $BUILD_PACKAGES \
     && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
     && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \   
     && apt-add-repository -y ppa:rael-gc/rvm \
     && apt-get update \
-    && apt-get install -y --no-install-recommends $RunDeps \
-	&& rm -rf /var/lib/apt/lists/* 
+    && apt-get install -y --no-install-recommends $RUN_PACKAGES \
+    && apt-get remove --purge -y $BUILD_PACKAGES \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/* 
 
 # install ruby, update rubygems & install bundler
 ARG RUBY_VERSION=2.4.3
