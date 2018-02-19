@@ -23,6 +23,6 @@ services:
     restart: always
 
   teamcity-agent:
-    build: ./agents/ruby-nodejs
+    image: quintsys/teamcity-agent-ruby:latest
     env_file: .env
     restart: always
