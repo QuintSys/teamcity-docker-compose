@@ -33,6 +33,5 @@ ARG BUNDLER_INSTALL="rvm @global do gem install bundler --version ${BUNDLER_VERS
 ARG BUNDLER_CONFIG="bundle config --global silence_root_warning 1"
 RUN /bin/bash -c "${SOURCE_RVM} && ${RUBY_INSTALL} && ${BUNDLER_INSTALL} && ${BUNDLER_CONFIG}"
 
-CMD ["/bin/bash", "-c", \
-    "source /usr/share/rvm/scripts/rvm", \
-    "&& source run-services.sh"]
+# provide defaults for the executing container
+CMD /bin/bash -c "${SOURCE_RVM} && source run-services.sh"
