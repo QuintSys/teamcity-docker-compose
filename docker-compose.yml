@@ -26,4 +26,3 @@ services:
     build: ./agents/ruby-nodejs
     env_file: .env
     restart: always
-    scale: 3
