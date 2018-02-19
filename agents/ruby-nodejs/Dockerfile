@@ -12,7 +12,8 @@ RUN sed -i 's/^mesg n || true$/tty -s \&\& mesg n/g' /root/.profile
 
 # install git, rvm, nodejs, yarn and Qt
 ARG BUILD_PACKAGES="software-properties-common"
-ARG RUN_PACKAGES="git rvm nodejs yarn qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x libcurl4-openssl-dev"
+ARG RUN_PACKAGES="git rvm nodejs yarn libcurl4-openssl-dev"
+ARG CAPYBARA_DEP="qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x xvfb"
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends $BUILD_PACKAGES \
     && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
@@ -21,6 +22,7 @@ RUN apt-get update \
     && apt-add-repository -y ppa:rael-gc/rvm \
     && apt-get update \
     && apt-get install -y --no-install-recommends $RUN_PACKAGES \
+    && apt-get install -y --no-install-recommends $CAPYBARA_DEP \
     && rm -rf /var/lib/apt/lists/* 
 
 # install ruby, update rubygems & install bundler
