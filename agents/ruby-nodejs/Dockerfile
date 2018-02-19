@@ -12,7 +12,7 @@ RUN sed -i 's/^mesg n || true$/tty -s \&\& mesg n/g' /root/.profile
 
 # install git, rvm, nodejs, yarn and Qt
 ARG BUILD_PACKAGES="software-properties-common"
-ARG RUN_PACKAGES="git rvm nodejs yarn qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x"
+ARG RUN_PACKAGES="git rvm nodejs yarn qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x libcurl4-openssl-dev"
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends $BUILD_PACKAGES \
     && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
