@@ -100,6 +100,10 @@ Try to find something like this:
 [TeamCity] Administrator can login from web UI using authentication token: 755994969038184734
 ```
 
+## Agents
+
+Ruby preconfigured agents are included. [more info](agents/ruby-nodejs/README.md)
+
 ## Contributing
 
 Bug reports, bug fixes and new features are always welcome.
